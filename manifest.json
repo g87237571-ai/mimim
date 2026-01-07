@@ -1,0 +1,17 @@
+{
+  "name": "Marmalade Mining",
+  "short_name": "MarmaladeMine",
+  "description": "Mine delicious marmalade every 3 hours!",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyOCAwQzU3LjMwNyAwIDAgNTcuMzA3IDAgMTI4czU3LjMwNyAxMjggMTI4IDEyOCAxMjgtNTcuMzA3IDEyOC0xMjhTMTk4LjY5MyAwIDEyOCAwWiIgZmlsbD0iI0ZGNkIzNSIvPjxwYXRoIGQ9Ik0xMDQgOTZoNDh2NjRoLTQ4WiIgZmlsbD0iI0ZGQTgyQiIvPjxwYXRoIGQ9Ik04MCAxMjhoOTZ2MzJIOThsLTE4LTMyWiIgZmlsbD0iI0ZGREI0MCIvPjwvc3ZnPg==",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

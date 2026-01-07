@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marmalade Mining</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="app">
+        <!-- Home Screen -->
+        <div class="screen active" id="home">
+            <div class="top-bar">
+                <div class="balance">
+                    <i class="fas fa-coins"></i>
+                    <span id="balance">1000</span> MARM
+                </div>
+                <div class="hashrate">
+                    <i class="fas fa-bolt"></i>
+                    <span id="hashrate">1.0</span> H/s
+                </div>
+            </div>
+
+            <div class="mining-area">
+                <div class="jar-container">
+                    <div class="jar">
+                        <div class="jar-top"></div>
+                        <div class="jar-body">
+                            <div class="marmalade" id="marmalade-fill"></div>
+                            <div class="bubbles">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </div>
+                        <div class="jar-label">MARM</div>
+                    </div>
+                </div>
+
+                <div class="mining-controls">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span id="progress-percent">0%</span>
+                            <span id="countdown">03:00:00</span>
+                        </div>
+                    </div>
+
+                    <button class="collect-btn" id="collect-btn" disabled>
+                        <i class="fas fa-download"></i>
+                        COLLECT
+                    </button>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="action-btn" id="daily-btn">
+                        <i class="fas fa-gift"></i>
+                        <span>Daily</span>
+                    </button>
+                    <button class="action-btn" id="upgrades-btn">
+                        <i class="fas fa-industry"></i>
+                        <span>Upgrades</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Friends Screen -->
+        <div class="screen" id="friends">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('home')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2><i class="fas fa-users"></i> Friends</h2>
+                <div class="spacer"></div>
+            </div>
+            <div class="empty-content">
+                <i class="fas fa-user-friends"></i>
+                <p>Friends feature coming soon</p>
+            </div>
+        </div>
+
+        <!-- Tasks Screen -->
+        <div class="screen" id="tasks">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('home')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2><i class="fas fa-tasks"></i> Tasks</h2>
+                <div class="spacer"></div>
+            </div>
+            <div class="empty-content">
+                <i class="fas fa-clipboard-list"></i>
+                <p>Tasks feature coming soon</p>
+            </div>
+        </div>
+
+        <!-- Wallet Screen -->
+        <div class="screen" id="wallet">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('home')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2><i class="fas fa-wallet"></i> Wallet</h2>
+                <div class="spacer"></div>
+            </div>
+            <div class="empty-content">
+                <i class="fas fa-clock"></i>
+                <h3>COMING SOON</h3>
+                <p>Wallet under development</p>
+            </div>
+        </div>
+
+        <!-- Daily Bonus Popup -->
+        <div class="popup" id="daily-popup">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h3><i class="fas fa-calendar-alt"></i> DAILY BONUS</h3>
+                    <button class="close-btn" onclick="closePopup('daily-popup')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="popup-body">
+                    <div class="bonus-days">
+                        <div class="bonus-day" data-day="1">
+                            <div class="day-num">1</div>
+                            <div class="day-reward">100</div>
+                        </div>
+                        <div class="bonus-day" data-day="2">
+                            <div class="day-num">2</div>
+                            <div class="day-reward">150</div>
+                        </div>
+                        <div class="bonus-day" data-day="3">
+                            <div class="day-num">3</div>
+                            <div class="day-reward">200</div>
+                        </div>
+                        <div class="bonus-day" data-day="4">
+                            <div class="day-num">4</div>
+                            <div class="day-reward">250</div>
+                        </div>
+                        <div class="bonus-day" data-day="5">
+                            <div class="day-num">5</div>
+                            <div class="day-reward">300</div>
+                        </div>
+                        <div class="bonus-day" data-day="6">
+                            <div class="day-num">6</div>
+                            <div class="day-reward">400</div>
+                        </div>
+                        <div class="bonus-day" data-day="7">
+                            <div class="day-num">7</div>
+                            <div class="day-reward">500</div>
+                        </div>
+                    </div>
+                    
+                    <div class="streak-info">
+                        <p>Streak: <span id="streak-days">0</span> days</p>
+                        <button class="claim-btn" id="claim-daily-btn" onclick="claimDailyBonus()">
+                            <i class="fas fa-gift"></i> CLAIM TODAY
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrades Popup -->
+        <div class="popup" id="upgrades-popup">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h3><i class="fas fa-chart-line"></i> UPGRADES</h3>
+                    <button class="close-btn" onclick="closePopup('upgrades-popup')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="popup-body">
+                    <div class="upgrades-list">
+                        <div class="upgrade-item" onclick="buyUpgrade('mini')">
+                            <div class="upgrade-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="upgrade-info">
+                                <h4>Mini Factory</h4>
+                                <p>+0.5 H/s speed</p>
+                                <div class="upgrade-cost">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="mini-cost">500</span>
+                                </div>
+                            </div>
+                            <div class="upgrade-count" id="mini-count">0</div>
+                        </div>
+
+                        <div class="upgrade-item" onclick="buyUpgrade('medium')">
+                            <div class="upgrade-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="upgrade-info">
+                                <h4>Medium Factory</h4>
+                                <p>+2.0 H/s speed</p>
+                                <div class="upgrade-cost">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="medium-cost">2000</span>
+                                </div>
+                            </div>
+                            <div class="upgrade-count" id="medium-count">0</div>
+                        </div>
+
+                        <div class="upgrade-item" onclick="buyUpgrade('large')">
+                            <div class="upgrade-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="upgrade-info">
+                                <h4>Large Factory</h4>
+                                <p>+5.0 H/s speed</p>
+                                <div class="upgrade-cost">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="large-cost">5000</span>
+                                </div>
+                            </div>
+                            <div class="upgrade-count" id="large-count">0</div>
+                        </div>
+
+                        <div class="upgrade-item" onclick="buyUpgrade('logistics')">
+                            <div class="upgrade-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="upgrade-info">
+                                <h4>Logistics</h4>
+                                <p>+10% efficiency</p>
+                                <div class="upgrade-cost">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="logistics-cost">1000</span>
+                                </div>
+                            </div>
+                            <div class="upgrade-count" id="logistics-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span>Total Boost:</span>
+                            <strong id="total-boost">+0.0 H/s</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Efficiency:</span>
+                            <strong id="efficiency">100%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="notification" id="notification">
+            <i class="fas fa-check-circle"></i>
+            <span id="notification-text">Marmalade collected!</span>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-item active" onclick="showScreen('home')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('friends')">
+                <i class="fas fa-users"></i>
+                <span>Friends</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('tasks')">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </button>
+            <button class="nav-item" onclick="showScreen('wallet')">
+                <i class="fas fa-wallet"></i>
+                <span>Wallet</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
